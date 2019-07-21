@@ -240,19 +240,37 @@ $result=mysqli_query($db, $sql);
 
 
 <?php
-$usernamed=$_SESSION['username'];
-$db= mysqli_connect('localhost','root','', 'telex')or die("could not connect database.."); 
-$sql="SELECT COUNT(post) FROM `post` WHERE user='$usernamed' ;";
+$usernamed=$_SESSION['groupname'];
+$db= mysqli_connect('localhost','root','', $usernamed)or die("could not connect database.."); 
+$sql="SELECT COUNT(DISTINCT qn1) FROM `post` WHERE kind='2';";
 $result=mysqli_query($db,$sql);
 if($result)
 {
     $row=mysqli_fetch_assoc($result);
-    $nop=$row['COUNT(post)'];
+    $nop1=$row['COUNT(DISTINCT qn1)'];
 }
 else
 {
-    $nop=0;
+    $nop1=0;
 }
+
+$usernamed=$_SESSION['groupname'];
+$db= mysqli_connect('localhost','root','', $usernamed)or die("could not connect database.."); 
+$sql="SELECT COUNT(DISTINCT post) FROM `post` WHERE kind='3';";
+$result=mysqli_query($db,$sql);
+if($result)
+{
+    $row=mysqli_fetch_assoc($result);
+    $nop2=$row['COUNT(DISTINCT post)'];
+}
+else
+{
+    $nop2=0;
+}
+
+$nop=$nop1+$nop2;
+
+
 
 ?>
 

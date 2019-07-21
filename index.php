@@ -122,10 +122,11 @@ function like(post,user)
           user:user
     
     },
-    success:function(res){
-        console.log(res);
-    }
-    
+ dataType:"text",
+  success:function(data){
+    $('#resul').html(data);
+  }
+  
 
   })
 
@@ -144,9 +145,11 @@ function liker(post,user)
           user:user
     
     },
-    success:function(res){
-        console.log(res);
-    }
+    dataType:"text",
+  success:function(data){
+    $('#resul').html(data);
+  }
+  
     
 
   })
@@ -290,6 +293,30 @@ mysqli_query($dab,$sql);
 
                 </div>
  </div>
+
+
+
+
+
+
+
+
+
+
+<div id="resul">
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  <div class="row">
@@ -487,7 +514,7 @@ if($resug)
 <div class="col-sm-12 ">
 <div class="mamay">
 
-    <p><button href=""  onclick="liker('<?php echo $ps; ?>','<?php echo $user; ?>');" id="<?php echo $pl?>" style="color:rgb(23, 152, 192);background:none; border:none;" >
+    <p><button type="button"  onclick="liker('<?php echo $ps; ?>','<?php echo $user; ?>');" id="<?php echo $pl?>" style="color:rgb(23, 152, 192);background:none; border:none;" >
     <i class="	fa fa-heart-o w3-xxlarge"></i></button> 
      <button  type="button" style="background:none; border:none; color:black;" onclick="commentbx('<?php echo $pct; ?>','<?php echo $user; ?>')" name="<?php echo $pct ?>">
      <i class="fa fa-commenting-o w3-xxlarge"></i></button></p>
@@ -503,7 +530,7 @@ else
 <div class="col-sm-12 ">
 <div class="mamay">
 
-    <p><button href=""  style="background:none; border:none; color:black;"  id="<?php echo $pl?>" onclick="like('<?php echo $ps; ?>','<?php echo $user; ?>');" >
+    <p><button type="button"  style="background:none; border:none; color:black;"  id="<?php echo $pl?>" onclick="like('<?php echo $ps; ?>','<?php echo $user; ?>');" >
     <i class="	fa fa-heart-o w3-xxlarge"></i></button>  
     
     <button type="button" style="background:none; border:none; color:black;" onclick="commentbx('<?php echo $pct; ?>','<?php echo $user; ?>')" name="<?php echo $pct ?>"><i class="fa fa-commenting-o w3-xxlarge"></i></button></p>
@@ -521,7 +548,7 @@ else
 <div class="col-sm-12 ">
 <div class="mamay">
 
-    <p><button href="" style="background:none; border:none; color:black;" id="<?php echo $pl?>" onclick="like('<?php echo $ps; ?>','<?php echo $user; ?>');" ><i class="	fa fa-heart-o w3-xxlarge">
+    <p><button type="button" style="background:none; border:none; color:black;" id="<?php echo $pl?>" onclick="like('<?php echo $ps; ?>','<?php echo $user; ?>');" ><i class="	fa fa-heart-o w3-xxlarge">
     </i></button>    <button  type="button" style="background:none; border:none; color:black;" onclick="commentbx('<?php echo $pct; ?>','<?php echo $user; ?>')" name="<?php echo $pct ?>"><i class="fa fa-commenting-o w3-xxlarge"></i></button></p>
 </div>
 </div> </div>
@@ -627,15 +654,6 @@ $(document).ready(function(){
             $("#<?php echo $j;?>").removeAttr("disabled");
      })
 })
-
-$(document).ready(function(){
-  $('#<?php echo $pl ?>').click(function(){
-     $("#<?php echo $pl ?>").removeAttr("onclick");
-     $("#<?php echo $pl ?>").setAttr("style","color:blue;");
-
-  })
-})
-
 
 
 
@@ -812,6 +830,31 @@ function cutma(id)
 
 
 </div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
 
 </form>
 

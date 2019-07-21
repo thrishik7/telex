@@ -25,7 +25,7 @@ if(isset($_GET['logout']))
 
 $groupname=$_SESSION['viewg'];
 
-
+$_SESSION['groupname']=$_SESSION['viewg'];
 
 $df='btn'.$groupname;
 if(isset($_POST[$df]))
@@ -199,19 +199,37 @@ $result=mysqli_query($db, $sql);
 
 
 <?php
-$usernamed=$_SESSION['username'];
-$db= mysqli_connect('localhost','root','', 'telex')or die("could not connect database.."); 
-$sql="SELECT COUNT(post) FROM `post` WHERE user='$usernamed' ;";
+$usernamed=$_SESSION['viewg'];
+$db= mysqli_connect('localhost','root','', $usernamed)or die("could not connect database.."); 
+$sql="SELECT COUNT(DISTINCT qn1) FROM `post` WHERE kind='2';";
 $result=mysqli_query($db,$sql);
 if($result)
 {
     $row=mysqli_fetch_assoc($result);
-    $nop=$row['COUNT(post)'];
+    $nop1=$row['COUNT(DISTINCT qn1)'];
 }
 else
 {
-    $nop=0;
+    $nop1=0;
 }
+
+$usernamed=$_SESSION['viewg'];
+$db= mysqli_connect('localhost','root','', $usernamed)or die("could not connect database.."); 
+$sql="SELECT COUNT(DISTINCT post) FROM `post` WHERE kind='3';";
+$result=mysqli_query($db,$sql);
+if($result)
+{
+    $row=mysqli_fetch_assoc($result);
+    $nop2=$row['COUNT(DISTINCT post)'];
+}
+else
+{
+    $nop2=0;
+}
+
+$nop=$nop1+$nop2;
+
+
 
 ?>
 
@@ -239,14 +257,14 @@ else
 
 
 <?php
-$usernamed=$_SESSION['username'];
+$usernamed=$_SESSION['viewg'];
 $db= mysqli_connect('localhost','root','', $usernamed)or die("could not connect database.."); 
-$sql="SELECT COUNT(DISTINCT user) FROM `connect` WHERE `stat`='connected';";
+$sql="SELECT COUNT(DISTINCT users) FROM `connect` WHERE `stat`='connected' OR `stat`='admin';";
 $result=mysqli_query($db,$sql);
 if($result)
 {
     $row=mysqli_fetch_assoc($result);
-    $noc=$row['COUNT(DISTINCT user)'];
+    $noc=$row['COUNT(DISTINCT users)'];
 }
 else
 {
@@ -300,6 +318,14 @@ $result=mysqli_query($dba, $sql);
 
 <button type="submit" class="btn btn-warning btn-block" disabled>JOINED</button>
 <?php  }
+  
+  else if($cond=="admin")
+   { ?>
+
+<button type="submit" class="btn btn-success btn-block" disabled>ADMIN</button>
+<?php  }
+
+
 
 else  { ?>
     <button type="submit" name="<?php echo $as ?>" class="btn btn-warning btn-block">JOIN</button>
@@ -383,9 +409,286 @@ else  { ?>
 <div class="col-sm-12">
 <div style="height:430px; margin:10px;  background:rgb(255, 255, 255, 0.5); box-shadow: 0 15px 25px rgba(0,0,0,.5); overflow-y: scroll;  padding :26px;" class="chat_history">
 <div class="row">
-<div class="col-sm-12" style="text-align:center; margin-bottom:10px;">
+<div class="col-sm-12" style=" margin-bottom:10px;">
 
 
+
+
+
+
+
+<div class="row">
+   <div class="col-sm-12">
+<?php 
+
+$usernamed1=$_SESSION['username'];
+$db= mysqli_connect('localhost','root','',$usernamed1)or die("could not connect database..");
+?>
+
+<?php 
+$groupnamess=$_SESSION['groupname'];
+  $db= mysqli_connect('localhost','root','',$usernamed1)or die("could not connect database..");
+  $sql="SELECT * FROM `grouppost` WHERE kind='3' AND groups='$groupnamess' ORDER BY dat DESC;  ";
+  $results=mysqli_query($db,$sql);
+  if($results)
+  {
+     while($rows=mysqli_fetch_assoc($results))
+  {
+    
+     $groupname=$rows['groups'];
+     $kind=$rows['kind'];
+     $dbaab= mysqli_connect('localhost','root','','telexgroup')or die("could not connect database..");
+     $sql="SELECT * FROM `grouptel` WHERE `groupname`='$groupname';";
+     $resd=mysqli_query($dbaab,$sql);
+     if($resd)
+     {
+        $rowq=mysqli_fetch_assoc($resd);
+        $ima2=$rowq['cole1'];
+        $image2='images/'.$ima2;
+ 
+     }
+     $im=$rows['post'];
+     $capt=$rows['caption'];
+     $dt=$rows['dat'];
+     $user=$rows['users'];
+     $post='post/'.$im;
+    $pc=$rows['id'];
+    $j="bp".$pc;
+    $ps=$rows['id'];
+    $pp='comment'.$pc;
+    $pl='like'.$rows['id'];
+    $pct=$rows['id'];
+     $dba= mysqli_connect('localhost','root','',$user)or die("could not connect database..");
+     $sql="SELECT `dp` FROM `profile` WHERE id='1';";
+     $resu=mysqli_query($dba,$sql);
+     if($resu)
+     {
+       $rowq=mysqli_fetch_assoc($resu);
+       $ima=$rowq['dp'];
+       $image='images/'.$ima;
+
+ 
+       
+
+     }
+
+
+$isn=$user;
+if($kind==3)
+{
+
+?>
+<div class="timeline" style="width:480px;">
+ <div class="row">
+
+
+    
+     
+   
+     <div class="col-sm-12">
+     <div class="mamai">
+    
+         <p> <button  style="background:none; border:none;"  name="<?php echo $isn; ?>"  type="submit" ><img src="<?php echo $image2;?>"  height="50" width="50" style="border-radius: 50%;" id="display profile"/>
+      </button> <?php echo $dt; ?> <strong><?php echo $user; ?></strong></p>
+     </div>
+  </div> 
+    </div>
+
+
+
+    <?php    $popt='opt'.$rows['id'];   ?>
+<div class="row">
+<div class="col-sm-12 form-group">
+<div class="mamay">
+
+    <div id="<?php echo $popt ?>"></div>
+</div>
+</div> </div>
+
+
+
+    <div class="row">
+<div class="col-sm-12">
+<div class="mamay">
+
+    <p> <strong><?php echo $capt; ?></strong></p>
+</div>
+</div> 
+</div>
+  
+
+<?php if($im!='') {?>
+<div class="row">
+<div class="col-sm-12 text-center">
+<div class="mamay">
+
+    <p> <img src="<?php echo $post ?>"  height="280" width="455" /></p>
+</div>
+</div> </div>
+
+
+
+    <?php }?>
+
+
+</div>
+
+<?php
+   }
+}} 
+$groupnamess=$_SESSION['groupname'];
+
+$db= mysqli_connect('localhost','root','',$usernamed1)or die("could not connect database..");
+$sql="SELECT DISTINCT qn1, groups, qndesc, users FROM `grouppost` WHERE kind='2' AND groups='$groupnamess' ORDER BY dat DESC;  ";
+$results=mysqli_query($db,$sql);
+if($results)
+{
+   while($rows=mysqli_fetch_assoc($results))
+{
+$user=$rows['users'];
+$groupname=$rows['groups'];
+$qn1=$rows['qn1'];
+$qnd=$rows['qndesc'];
+$dbaab= mysqli_connect('localhost','root','','telexgroup')or die("could not connect database..");
+$sql="SELECT * FROM `grouptel` WHERE `groupname`='$groupname';";
+$resd=mysqli_query($dbaab,$sql);
+if($resd)
+{
+   $rowq=mysqli_fetch_assoc($resd);
+   $ima2=$rowq['cole1'];
+   $image2='images/'.$ima2;
+
+}
+
+
+?>
+<div class="timeline" style="width:480px;">
+ 
+     
+   <div class="row">
+<div class="col-sm-12">
+     <div class="mamai">
+    
+         <p> <button  style="background:none; border:none;"  name="<?php echo $isn; ?>"  type="submit" ><img src="<?php echo $image2;?>"  height="50" width="50" style="border-radius: 50%;" id="display profile"/>
+      </button><strong><?php echo $user; ?></strong></p>
+     </div>
+  </div> 
+    </div>
+
+
+
+<div class="row">
+    <div class="col-sm-12">
+     <div class="mamai">
+    
+         <p><strong><?php echo $qn1; ?></strong></p>
+     </div>
+  </div> 
+    </div>
+<div class="row">
+    <div class="col-sm-12">
+     <div class="mamai">
+    
+         <p>Description: <?php echo $qnd; ?></p>
+     </div>
+  </div> 
+    </div>
+    <div id="resultp">
+
+<?php                
+
+$db= mysqli_connect('localhost','root','',$usernamed1)or die("could not connect database..");
+
+
+$sql="SELECT SUM(voting) FROM `grouppost` WHERE qn1='$qn1' ";
+$resultSs=mysqli_query($db,$sql);
+
+if($resultSs){
+   $rowv=mysqli_fetch_assoc($resultSs);
+   $votes=$rowv['SUM(voting)'];
+}
+
+$sql="SELECT * FROM `grouppost` WHERE qn1='$qn1' ";
+$resultsv=mysqli_query($db,$sql);
+if($resultsv)
+{
+    $j=0;
+   while($rowff=mysqli_fetch_assoc($resultsv))
+{
+
+    $an=$rowff['answers'];
+    $color=$rowff['cole1'];
+    $vote=$rowff['voting'];
+    if($votes==0)
+    {
+        $vts=0;
+    }
+    else
+    $vts= ($vote/$votes)*100;
+  $j++;
+?>
+
+
+<div class="row">
+    <div class="col-sm-6" style="text-algin:center;">
+     <div  style="text-algin:center;">
+    
+         <p><input type="radio" id="<?php echo $j; ?>" name="<?php echo $qn1; ?>" value="<?php echo $an; ?>" Required><strong> <?php echo $an; ?></strong></p>
+     </div>
+  </div> 
+  <div class="col-sm-6" style="text-algin:center;">
+     <div  style="text-algin:center;">
+    
+         <p><input style="width:<?php echo $vts.'%'; ?>; background:<?php echo  $color;  ?>; border:none;" ></p>
+     </div>
+  </div> 
+    </div>
+
+   
+
+
+
+<?php } } ?></div>
+
+<div class="row">
+    <div class="col-sm-12">
+     <div class="mamai">
+    <?php
+    $usernamed=$_SESSION['username'];
+$dab= mysqli_connect('localhost','root','', $groupname)or die("could not connect database.."); 
+$sql="SELECT DISTINCT users FROM `$qn1` WHERE `users`='$usernamed';";
+$resultss=mysqli_query($dab,$sql);
+?>
+
+
+
+
+
+
+     </div>
+  </div> 
+    </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+<?php 
+}} 
+?>
+
+
+
+
+
+</div></div>
 
 
 

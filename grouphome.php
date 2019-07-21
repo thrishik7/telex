@@ -242,17 +242,7 @@ if($kind==3)
 
 
     <?php }?>
-
-    <div class="row">
-<div class="col-sm-12 form-group">
-<div class="mamay">
-
-    <p><input type="text" style="width:80%;" name="<?php echo $pp;?>" id="<?php echo $pp;?>" placeholder="Add Comments.."><button name="<?php echo $j;?>" id="<?php echo $j;?>"  onclick="addcomment('<?php echo $ps; ?>','<?php echo $user; ?>','<?php echo $im; ?>');" type="submit" disabled>post</button></p>
 </div>
-</div> </div>
-
-</div>
-
 <?php
    }
 }} 
