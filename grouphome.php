@@ -93,7 +93,7 @@ $sql="SELECT * FROM grouptel;";
                <li ><a href="profile.php"><i class="fa fa-user w3-xxlarge"></i></a></li>
                <li><a href="addgrou.php" title="add group"><i class="fa fa-plus-circle w3-xxlarge"></i></a></li>
                
-               <li><a href="message.php"><i class="fa fa-comments w3-xxlarge"></i></a></li>
+               <li><a href="groupmessage.php"><i class="fa fa-comments w3-xxlarge"></i></a></li>
                <?php 
                   $usernamed=$_SESSION['username'];
                   $db= mysqli_connect('localhost','root','',$usernamed)or die("could not connect database..");
@@ -350,7 +350,7 @@ if($resultsv)
   <div class="col-sm-6" style="text-algin:center;">
      <div  style="text-algin:center;">
     
-         <p><input style="width:<?php echo $vts.'%'; ?>; background:<?php echo  $color;  ?>; border:none;" ></p>
+         <p><input title='<?php echo $vts.'%'; ?>' style="width:<?php echo $vts.'%'; ?>; background:<?php echo  $color;  ?>; border:none;" ></p>
      </div>
   </div> 
     </div>

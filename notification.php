@@ -80,11 +80,14 @@ if($result)
 {
 
  while($row=mysqli_fetch_assoc($result))
- {
+ { 
+   $is=$row['id'];
     $user=$row['user'];
     $msg=$row['msg'];
-    $name='btb'.$user;
-    $naame='btbg'.$user;
+    $name='btb'.$user.$is;
+    $naame='tbg'.$user.$is;
+
+
   
           if(isset($_POST[$name])){
           
@@ -107,7 +110,7 @@ if($result)
             $sql = "INSERT INTO `notification`(`dat`,`msg`,`user`,`kind`,`stat`) VALUES ('$dt','$mg','$usernamed','2','unread');";
             mysqli_query($dba, $sql);
 
-
+           
            
 
           }
@@ -118,11 +121,12 @@ if($result)
             date_default_timezone_set("Asia/Kolkata");
             $dt=date("Y-m-d H:i:s");
             $usernamed=$_SESSION['username'];
+            $msg=$row['msg'];
             $dab= mysqli_connect('localhost','root','',$msg)or die("could not connect database..");
             $sql = "UPDATE `connect` SET `stat`= 'connected' WHERE `users`='$user';";
             mysqli_query($dab, $sql);
             $dba= mysqli_connect('localhost','root','',$usernamed)or die("could not connect database..");
-            $sql="UPDATE `notification` SET `kind`='6' WHERE `user`='$user';"; 
+            $sql="UPDATE `notification` SET `kind`='6' WHERE `user`='$user' AND `kind`='5';"; 
             mysqli_query($dba, $sql);
          
             $dba= mysqli_connect('localhost','root','',$user)or die("could not connect database..");
@@ -234,11 +238,12 @@ if($result)
 
  while($row=mysqli_fetch_assoc($result))
  {
+   $is=$row['id'];
    $dt=$row['dat'];
    $msg=$row['msg'];
    $kind=$row['kind'];
    $user=$row['user'];
-   $name='btb'.$user;
+   $name='btb'.$user.$is;
    $dba= mysqli_connect('localhost','root','',$user)or die("could not connect database..");
 $sql="SELECT `dp` FROM `profile` WHERE id='1';";
 $resu=mysqli_query($dba,$sql);
@@ -314,7 +319,7 @@ else { ?>
 
  <?php
     if($kind==5) {
-      $naame='btbg'.$user;
+      $naame='tbg'.$user.$is;
    ?>
 
  <div class="col-sm-4">

@@ -161,7 +161,7 @@ $usernamed= $_SESSION['username'];
                <li class="active" ><a href="profile.php"><i class="fa fa-user w3-xxlarge"></i></a></li>
                <li ><a href="addgrou.php" title="add group"><i class="fa fa-plus-circle w3-xxlarge"></i></a></li>
                
-               <li><a href="message.php"><i class="fa fa-comments w3-xxlarge"></i></a></li>
+               <li><a href="groupmessage.php"><i class="fa fa-comments w3-xxlarge"></i></a></li>
              </ul>
 
         </nav>
@@ -425,7 +425,7 @@ if($result)
              <li style="margin:5px;"><a href="poll.php" title="start poll"><i class="fas fa-poll w3-xxlarge"></i></a></li>
              <li style="margin:5px;"><a title="add event"> <i class="fas fa-calendar-alt w3-xxlarge"></i></a></li>
                
-             <li style="margin:5px;"><a title="group chat"><i class="fa fa-comments w3-xxlarge"></i></a></li>
+             <li style="margin:5px;"><a href="groupmessage.php" title="group chat"><i class="fa fa-comments w3-xxlarge"></i></a></li>
              </ul>
 
         </nav>

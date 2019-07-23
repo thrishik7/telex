@@ -93,7 +93,7 @@ mysqli_query($conn, $sql);
                <li ><a href="profile.php"><i class="fa fa-user w3-xxlarge"></i></a></li>
                <li><a href="addgrou.php" title="add group"><i class="fa fa-plus-circle w3-xxlarge"></i></a></li>
                
-               <li><a href="message.php"><i class="fa fa-comments w3-xxlarge"></i></a></li>
+               <li><a href="groupmessage.php"><i class="fa fa-comments w3-xxlarge"></i></a></li>
                <?php 
                   $usernamed=$_SESSION['username'];
                   $db= mysqli_connect('localhost','root','',$usernamed)or die("could not connect database..");

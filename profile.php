@@ -117,9 +117,63 @@ $usernamed= $_SESSION['username'];
 <div class="row">
 
 <div class="col-sm-1" style="background:none;text-align: center; ">
-<button style="border:none; background:none;">
+<button type="button" onclick="settin();" style="border:none; background:none;">
 <i class="fas fa-ellipsis-v" style="color:rgb(23, 152, 192); font-size:30px; margin-top:40px;" aria-hidden="true"></i>
 </button>
+
+<div id="reslu">
+
+</div>
+<script>
+function settin()
+{
+ 
+ $.ajax({
+                url:"settin.php",
+                method:"post",
+                
+               
+
+                success:function(data)
+                {
+                  $('#reslu').html(data);
+                }
+
+ });
+
+
+}
+
+
+
+function privatee()
+{
+  
+
+  $.ajax({
+          url:"privatee.php",
+          method:"post",
+          dataType:"text",
+          success:function(data)
+              {
+                 console.log("done");
+              }
+
+  });
+  
+
+}
+
+
+
+
+
+
+</script>
+
+
+
+
 </div>
 
 
@@ -388,6 +442,13 @@ function viewpost(post)
               }
        });
   }
+
+
+
+
+
+
+
 
 
   function delpp(id)

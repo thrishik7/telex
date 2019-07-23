@@ -282,7 +282,10 @@ $result=mysqli_query($dba, $sql);
      $row=mysqli_fetch_assoc($result);
      $cond=$row['stat'];
  }
- 
+ else
+ {
+     $cond='';
+ }
 
 ?>
 
