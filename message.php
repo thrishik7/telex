@@ -24,6 +24,17 @@ if(isset($_GET['logout']))
 <?php
 
 
+
+
+
+
+
+
+
+
+
+
+
 $db= mysqli_connect('localhost','root','', 'projectusers')or die("could not connect database..");
 $sql="SELECT username FROM user2;";
  $result=mysqli_query($db,$sql);
@@ -50,7 +61,12 @@ $sql="SELECT username FROM user2;";
     }
 
 
-?>
+    ?>
+
+
+
+
+
 
 <!DOCTYPE html>
 <html>
@@ -66,6 +82,34 @@ $sql="SELECT username FROM user2;";
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="style1.css">
+
+<script>
+
+
+
+
+
+
+
+
+
+</script>
+<script>
+    function triggerClick(){
+document.querySelector("#messImage").click();
+
+
+
+
+}
+
+
+
+
+
+    </script>
+
+
 
 
 <title>Home Page</title>
@@ -130,6 +174,13 @@ $sql="SELECT username FROM user2;";
 
 </div>
 <div class="row">
+<input type="file" name="dp" id="messImage"  style="display:none;">
+
+</div>
+
+
+
+<div class="row">
 
 <div class="col-sm-6">
 <div class="msgs">
@@ -179,19 +230,59 @@ $usar=$row['username'];
          $dp =$rows['dp'];
          $img='images/'.$dp;
          
+    ?> <?php $idc='user_model_details'.$id;
+    $idp='userpo'.$id;
     ?>
+
+<div id=<?php echo $idp;?>>
+       <div id=<?php echo $idc ?> style="background:white; ">
     <div class="baaai">
       <button  type="button" style="background:none; border:none; display:block; " onclick="make_chat_dialog_box('<?php echo $id ?> ','<?php echo $usar ?>')" >
       <div class= "col-sm-12">
-      
+       <img src="<?php echo $img ?>"/><b><?php echo $usar ?></b>
     
-     <img src="<?php echo $img ?>"/><b><?php echo $usar ?></b>
-        <?php $idc='user_model_details'.$id ?>
       
       
       </div></button>  </div> 
-      <div id=<?php echo $idc ?> style="background:white; ">
-     </div>
+   
+     </div></div>
+
+<?php 
+$namew="send_chat".$id ;
+$filename="filemm".$id;
+if(isset($_POST[$namew]))
+{
+
+ 
+  date_default_timezone_set("Asia/Kolkata");
+  $dt=date("Y-m-d H:i:s");
+
+  $profileImageName=time().'_'.$_FILES['dp']['name'];
+
+  $target='post/' . $profileImageName;
+  move_uploaded_file($_FILES['dp']['tmp_name'],$target);
+     $send=$_SESSION['username'];
+     $user=$usar;
+
+  $db= mysqli_connect('localhost','root','', 'telex')or die("could not connect database..");
+  $sql="INSERT INTO messages (`dat`,`msg`,`sen`,`whom`,`cole1`,`cole2`,`stat`) VALUES ('$dt','$profileImageName','$send','$user','$id','3', 'unread') ;";
+  mysqli_query($db, $sql);
+ 
+ }
+ 
+ 
+
+
+
+
+?>
+
+
+
+
+
+
+
 
 <?php 
 
@@ -212,7 +303,7 @@ $usar=$row['username'];
 </div>
 
 
-
+  </div>
 
 </div>
 
@@ -220,15 +311,28 @@ $usar=$row['username'];
 
 <script>
 
-function cutma(id)
+function cutma(id,user)
 {
   
- var idpu='user_model_details'+id;
- var yo=document.getElementById(idpu);
- yo.innerHTML="";
+ var idpu='userpo'+id;
 
+
+$.ajax({
+     url:"closee.php",
+     method:"post",
+     data:{id:id,
+           user:user
+     
+     },
+     dataType:"text",
+     success:function(data)
+     {
+       $('#'+idpu).html(data);
+     }
+});
 
 }
+
 
 
 
@@ -348,6 +452,50 @@ function make_chat_dialog_box(id,user)
 
 }
 
+function kill(user,id)
+{
+  console.log("yo");
+  console.log(user);
+  var property= document.getElementById("messImage").files[0];
 
+
+var  form_data= new FormData();
+form_data.append("file",property);
+
+console.log(form_data);
+$.ajax({
+       url:"photomsg2.php",
+  
+       type:'POST',
+       data:{
+             id:id,
+             user:user,
+            
+       },
+       dataType:"text",
+     
+
+     
+   });
+ 
+   $.ajax({
+       url:"photomsg.php",
+  
+       type:'POST',
+       data:form_data,
+       dataType:"text",
+       contentType:false,
+       cache:false,
+       processData:false,
+          
+       success:function(data)
+       {
+        $('#what').html(data);
+       }
+   });
+ 
+
+
+ }
 
 </script>

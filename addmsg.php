@@ -14,6 +14,8 @@ $db= mysqli_connect('localhost','root','','telex')or die("could not connect data
 $sql="INSERT INTO `messages` (`dat`,`msg`,`sen`,`whom`,`cole1`,`stat`) VALUES ('$dt','$msg','$send','$user','$id','unread');";
 mysqli_query($db,$sql);
  
+
+
 $output='';
 
 
@@ -30,10 +32,13 @@ if($res)
 {
    $tw=$row['sen'];
    $ft=$row['whom'];
-   $mss=$row['msg'];
+   $kk=$row['cole2'];
+   $mss=$row['msg'];   $dat=$row['dat'];
+
+if($kk!=3){
    if(($tw==$user)&&($ft==$send))
    {
-$output.='<div class="row" style="background:white; margin:10px; padding:10px; width:50%; border-radius:10px; ">
+$output.='<div class="row" title="'.$dat.'"  style="background:white; margin:10px; padding:10px; width:50%; border-radius:10px; ">
 <div style:"color:black;  " class="comli col-sm-12"><a>'.$mss.'</a></div>
 </div>
 ';
@@ -41,12 +46,53 @@ $output.='<div class="row" style="background:white; margin:10px; padding:10px; w
 
    else if(($tw==$send)&&($ft==$user))
    {
-$output.='<div class="row" style="background:rgb(249, 197, 28); margin:10px; float:right; padding:10px; border-radius:10px; width:50%; ">
+$output.='<div class="row" title="'.$dat.'" style="background:rgb(249, 197, 28); margin:10px; float:right; padding:10px; border-radius:10px; width:50%; ">
 <div style:"color:black;  " class="comli col-sm-12"><a>'.$mss.'</a></div>
 </div>
 ';
    }
 
+}
+
+else
+{
+
+
+   if(($tw==$user)&&($ft==$send))
+   {
+
+   $img='post/'.$mss;
+
+   $output.='
+   <div class="row" title="'.$dat.'" style="background:white; margin:10px; padding:0; border-radius:10px;  float:left; text-algin:center; ">
+   
+   <div class="baaaia">
+   <img src="'.$img.'" />
+
+   
+   </div>
+   </div>';
+   }
+   else if(($tw==$send)&&($ft==$user))
+   {
+
+
+      $img='post/'.$mss;
+
+      $output.='
+      <div class="row" title="'.$dat.'" style="background:rgb(249, 197, 28); margin:10px; padding:0; float:right; border-radius:10px; text-algin:center; ">
+      
+      <div class="baaaia">
+      <img src="'.$img.'" />
+   
+      
+      </div>
+      </div>';
+
+
+   } 
+
+}
 
 
 
@@ -57,5 +103,6 @@ $output.='<div class="row" style="background:rgb(249, 197, 28); margin:10px; flo
 }
 
 echo $output;
+
 
 ?>

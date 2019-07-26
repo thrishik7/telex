@@ -208,6 +208,17 @@ function cutma(id)
  yo.innerHTML="";
 
 
+$.ajax({
+   
+
+
+
+
+});
+
+
+
+
 }
 
 

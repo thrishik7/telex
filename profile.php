@@ -156,7 +156,7 @@ function privatee()
           dataType:"text",
           success:function(data)
               {
-                 console.log("done");
+                $('#privcool').html(data);
               }
 
   });
@@ -166,7 +166,33 @@ function privatee()
 
 
 
+function aprivatee()
+{
+  
 
+  $.ajax({
+          url:"aprivatee.php",
+          method:"post",
+          dataType:"text",
+          success:function(data)
+              {
+                $('#privcool').html(data);
+              }
+
+  });
+  
+
+}
+
+function cutma7()
+{
+
+  var yo=document.getElementById('reslu');
+ yo.innerHTML="";
+
+
+
+}
 
 
 </script>

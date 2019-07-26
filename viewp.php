@@ -316,10 +316,55 @@ $result=mysqli_query($dba, $sql);
            </div>
 
 <div class="row">
-
-<?php 
-
+<?php
 $usernamed=$_SESSION['viewp'];
+$dab= mysqli_connect('localhost','root','',$usernamed)or die("could not connect database..");
+$sql="SELECT * FROM `profile` WHERE id='1'";
+$resault=mysqli_query($dab,$sql);
+if($resault)
+{
+$roww=mysqli_fetch_assoc($resault);
+$key=$roww['post'];
+}
+
+$usernamed1=$_SESSION['username'];
+$dba= mysqli_connect('localhost','root','',$usernamed1)or die("could not connect database..");
+$sql = "SELECT * FROM `connect` WHERE `user`='$usernamed';";
+$resulat=mysqli_query($dba, $sql);
+ if($resulat)
+ {
+     $row=mysqli_fetch_assoc($resulat);
+     $cond=$row['stat'];
+ }
+
+
+if($key=="private" && $cond!='connected')
+{
+
+?>
+
+<div class="row" style="background:rgb(255,255,255,0.98); margin:20px; height:370px; width:100%;text-algin:center; ">
+<div class="col-sm-4" style="text-algin:center;">
+
+
+
+<img src="private.png"  height="340" width="100%" />
+
+
+</div>
+<div class="col-sm-8" style="text-algin:center; font-size:40px; padding:80px;">
+
+<strong>CONNECT THIS ACCOUNT TO SEE THEIR PHOTOS</strong>
+</div>
+</div>
+
+<?php
+}
+
+
+else {
+$usernamed=$_SESSION['viewp'];
+$usernamed1=$_SESSION['username'];
 $db= mysqli_connect('localhost','root','', 'telex')or die("could not connect database.."); 
 $sql="SELECT * FROM `post` WHERE user='$usernamed'";
 $result=mysqli_query($db, $sql); 
@@ -341,7 +386,7 @@ $result=mysqli_query($db, $sql);
 
 
 
-<?php } }?>
+<?php }} }?>
 
            </div>
 </form>

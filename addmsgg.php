@@ -40,7 +40,7 @@ $output='';
     {
        $tw=$row['sen'];
        $ft=$row['whom'];
-    
+       $dat=$row['dat'];
        $mss=$row['msg'];
     
 
@@ -67,7 +67,7 @@ if($ft==$groupname){
    {
    if(($tw==$usss)&&($ft==$groupname))
    {
-$output.='<div class="row" style="background:white; margin:10px; padding:10px; width:50%; border-radius:10px; ">
+$output.='<div class="row" title="'.$dat.'" style="background:white; margin:10px; padding:10px; width:50%; border-radius:10px; ">
 
 <div style="color:'.$_SESSION[$tw].';  " class="comli col-sm-12"><strong>'.$tw.'</strong></div>
 <div style:"color:black;  " class="comli col-sm-12"><a>'.$mss.'</a></div>
@@ -77,7 +77,7 @@ $output.='<div class="row" style="background:white; margin:10px; padding:10px; w
 
    else if($tw==$send)
    {
-$output.='<div class="row" style="background:#5CDB95; margin:10px; float:right; padding:10px; border-radius:10px; width:50%; ">
+$output.='<div class="row" title="'.$dat.'" style="background:#5CDB95; margin:10px; float:right; padding:10px; border-radius:10px; width:50%; ">
 <div style="color:black;" class="comli col-sm-12"><a>'.$mss.'</a></div>
 </div>
 ';
