@@ -44,7 +44,7 @@ if($key=="private")
     </div>
     ';
 }
-else if($key=="aprivate"){
+else if($key!="private"){
 $output.='
 <div class="row" style="float:left;"><button  type="button" onclick="privatee()" style="color:black; background:none; border:none; margin:22px; " ><i class="fa fa-lock" style="font-size:12px"></i><b>  PRIVATE</b></button></div>
 </div>

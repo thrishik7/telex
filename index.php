@@ -2,11 +2,9 @@
 session_start();
 if(!isset($_SESSION['username']))
 {
-
     $_SESSION['msg']="You must log in first to view this page";
     header("location : login1.php");
 }
-
 if(isset($_GET['logout']))
 {
       
@@ -15,7 +13,6 @@ if(isset($_GET['logout']))
     session_destroy();
     header("location: login1.php");
 }
-
 ?>
 <!--?php
  ini_set(display_errors',1);
@@ -27,9 +24,7 @@ if(isset($_GET['logout']))
 
 
  <?php
-
 $errors = array();
-
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -40,18 +35,13 @@ $conn = mysqli_connect($servername, $username, $password);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
 // Create database
 $sql = "CREATE DATABASE $usernamed";
 mysqli_query($conn, $sql);
-
-
 $sql = "CREATE DATABASE telex";
 mysqli_query($conn, $sql);
-
 $usernamed1=$_SESSION['username'];
 $db= mysqli_connect('localhost','root','',$usernamed1)or die("could not connect database..");
-
 $sql = "CREATE TABLE `notification` (
      id  INT(6) UNSIGNED AUTO_INCREMENT , 
      dat VARCHAR(255) ,
@@ -62,8 +52,6 @@ $sql = "CREATE TABLE `notification` (
      PRIMARY KEY(id)
   )";
   mysqli_query($db, $sql);
-
-
   $sql = "CREATE TABLE `comment` (
     id  INT(6) UNSIGNED AUTO_INCREMENT , 
     dat VARCHAR(255) ,
@@ -77,6 +65,17 @@ $sql = "CREATE TABLE `notification` (
  )";
  mysqli_query($db, $sql);
 
+    $sql = "CREATE TABLE `connect` (
+         id  INT(6) UNSIGNED AUTO_INCREMENT , 
+         dat VARCHAR(255) ,
+         user VARCHAR(255),
+         stat VARCHAR(255) ,
+         PRIMARY KEY(id)
+      )";
+      mysqli_query($db, $sql);
+    
+
+
  $dab= mysqli_connect('localhost','root','','telex')or die("could not connect database..");
  $sql = "CREATE TABLE `messages` (
   id  INT(6) UNSIGNED AUTO_INCREMENT , 
@@ -89,11 +88,11 @@ $sql = "CREATE TABLE `notification` (
   stat VARCHAR(255) ,
   PRIMARY KEY(id)
 )";
+
+
+
+
 mysqli_query($dab, $sql);
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -111,7 +110,6 @@ mysqli_query($dab, $sql);
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="style1.css">
 <script>
-
 function like(post,user)
 {
  
@@ -128,12 +126,7 @@ function like(post,user)
     $('#resul').html(data);
   }
   
-
   })
-
-
-
-
 }
 function liker(post,user)
 {
@@ -152,16 +145,8 @@ function liker(post,user)
   }
   
     
-
   })
-
-
-
-
 }
-
-
-
 </script>
 
 
@@ -187,8 +172,6 @@ $usernamed= $_SESSION['username'];
        $ima=$rowq['dp'];
        $image='images/'.$ima;
      }
-
-
 ?>
 
 
@@ -226,15 +209,11 @@ $usernamed= $_SESSION['username'];
                       if($i==0){
                           $i='';
                       }
-
-
-
                   }
                   else
                   {
                       $i='';
                   }
-
                ?>
                <li> <a href="notification.php"><i class="fa fa-bell w3-xxlarge"></i><span class="badge bage-light" style="color:black;" ><?php echo $i; ?></span></a> </li>          </ul>
 
@@ -247,12 +226,10 @@ $usernamed= $_SESSION['username'];
 <div class="timeline1">
 
 <?php 
-
 if(isset($_POST['timeline']))
 {
   date_default_timezone_set("Asia/Kolkata");
   $dt=date("Y-m-d H:i:s");
-
 $timeline=$_POST['timelinep'];
 $li=0;
 $comm=0;
@@ -323,10 +300,8 @@ mysqli_query($dab,$sql);
  <div class="row">
    <div class="col-sm-12">
 <?php 
-
 $usernamed1=$_SESSION['username'];
 $db= mysqli_connect('localhost','root','',$usernamed1)or die("could not connect database..");
-
 $sql = "CREATE TABLE `temppost` (
      id  INT(6) UNSIGNED AUTO_INCREMENT , 
      dat VARCHAR(255) ,
@@ -345,7 +320,6 @@ $sql = "CREATE TABLE `temppost` (
   $result=mysqli_query($dab,$sql);
   if($result)
 {
-
   while($row=mysqli_fetch_assoc($result))
 {
  
@@ -376,28 +350,15 @@ $sql = "CREATE TABLE `temppost` (
     mysqli_query($db,$sql);
      
   }
-
-
-
-
-}
-
-
 }
 }
-
 }
-
-
-
+}
 ?>
 
 <?php 
-
   $db= mysqli_connect('localhost','root','',$usernamed1)or die("could not connect database..");
   $sql="SELECT DISTINCT post , user , dat, caption , lik , comment, ids FROM `temppost` ORDER BY dat DESC; ";
-
-
   $results=mysqli_query($db,$sql);
   if($results)
   {
@@ -425,15 +386,10 @@ $sql = "CREATE TABLE `temppost` (
        $rowq=mysqli_fetch_assoc($resu);
        $ima=$rowq['dp'];
        $image='images/'.$ima;
-
  
        
-
      }
-
 $isn=$user;
-
-
 ?>
 <div class="timeline" style="width:480px;">
  <div class="row">
@@ -500,12 +456,10 @@ $usernamed1=$_SESSION['username'];
 $dba= mysqli_connect('localhost','root','',$user)or die("could not connect database..");
 $sql="SELECT user FROM `notification` WHERE  msg='$ps' AND user='$usernamed1';";
 $resug=mysqli_query($dba,$sql);
-
 if($resug)
 {
   
  $rowc=mysqli_fetch_assoc($resug);
-
  $usernamed1=$_SESSION['username'];
     $userc=$rowc['user'];
     if($userc==$usernamed1)
@@ -540,7 +494,6 @@ else
 
 <?php
 }
-
 } else{
   
 ?>
@@ -565,7 +518,6 @@ else
     <p><a href=""><strong>
     
     <?php 
-
 $db= mysqli_connect('localhost','root','','telex')or die("could not connect database..");
 $sql="SELECT lik FROM `post` WHERE  id='$ps';";
 $resug=mysqli_query($db,$sql);
@@ -588,7 +540,6 @@ echo $lik;}
     
         
     <?php 
-
 $db= mysqli_connect('localhost','root','','telex')or die("could not connect database..");
 $sql="SELECT comment FROM `post` WHERE  id='$ps';";
 $resug=mysqli_query($db,$sql);
@@ -628,16 +579,13 @@ echo $lik;}
 
 
 <?php
-
 if(isset($_POST[$j]))
 {
   $e=$_POST[$pp];
-
   date_default_timezone_set("Asia/Kolkata");
   $dt=date("Y-m-d H:i:s");
   $usernamed1=$_SESSION['username'];
     $usernamed=$user;
-
      $dba= mysqli_connect('localhost','root','',$usernamed)or die("could not connect database..");
      $mg=$pc;
     $sql = "INSERT INTO `comment`(`dat`,`msg`,`user`,`post`,`stat`) VALUES ('$dt','$e','$usernamed1','$im','$mg');";
@@ -655,9 +603,6 @@ $(document).ready(function(){
             $("#<?php echo $j;?>").removeAttr("disabled");
      })
 })
-
-
-
 function addcomment(post,user,p)
 {
   var cd= document.getElementById("<?php echo $pp;?>").value;
@@ -675,17 +620,8 @@ function addcomment(post,user,p)
         console.log(res);
     }
     
-
   })
-
-
-
-
 }
-
-
-
-
 function commentbx(id,user)
 {
    var idc='commentbox'+id;
@@ -704,11 +640,7 @@ function commentbx(id,user)
   
   
    
-
-
-
 }
-
 function navpulla(id,user)
 {
    var idc='opt'+id;
@@ -727,12 +659,7 @@ function navpulla(id,user)
   
   
    
-
-
-
 }
-
-
 function delpost(id)
 {
   console.log(id);
@@ -744,22 +671,12 @@ function delpost(id)
                  id:id
                 },
           
-
     
-
  });
-
-
-
 }
-
-
-
-
 function prou(user)
 {
  
-
    $.ajax({
    
             url:"viewup.php",
@@ -770,17 +687,9 @@ function prou(user)
           dataType:"text",
         
              });
-
-
-
-
 }
-
-
 function disconnectu(id,user)
 {
-
-
   $.ajax({
    
    url:"disconnect.php",
@@ -790,32 +699,15 @@ function disconnectu(id,user)
         user: user
        },
  dataType:"text",
-
     });
-
-
-
-
-
-
-
 }
-
-
-
 function cutma(id)
 {
   
  var idpu='commentbox'+id;
  var yo=document.getElementById(idpu);
  yo.innerHTML="";
-
-
 }
-
-
-
-
 </script>
 
 
@@ -870,5 +762,3 @@ function cutma(id)
      $sql="DROP TABLE temppost;";
      mysqli_query($db,$sql);
      ?>
-
-    

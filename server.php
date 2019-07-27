@@ -1,7 +1,5 @@
 <?php
-
  session_start();
-
  $username= "";
  $email="";
  
@@ -10,19 +8,16 @@
  $servername = "localhost";
  $username = "root";
  $password = "";
-
  // Create connection
  $conn = mysqli_connect($servername, $username, $password);
  // Check connection
  if (!$conn) {
      die("Connection failed: " . mysqli_connect_error());
  }
-
  // Create database
  $sql = "CREATE DATABASE `projectusers`";
  mysqli_query($conn, $sql);
  $db= mysqli_connect('localhost','root','', 'projectusers')or die("could not connect database..");
-
  $sql = "CREATE TABLE user2(
     id  INT(6) UNSIGNED AUTO_INCREMENT , 
     username VARCHAR(255) ,
@@ -34,10 +29,6 @@
  
 )";
 mysqli_query($db, $sql) ;
-
-
-
-
  if(isset($_POST['register_user']))
  {
  $username=mysqli_real_escape_string($db, ($_POST['username']));
@@ -45,14 +36,10 @@ mysqli_query($db, $sql) ;
  $fullname=mysqli_real_escape_string($db, ($_POST['fullname']));
  $password_1=mysqli_real_escape_string($db, ($_POST['password_1']));
  $password_2=mysqli_real_escape_string($db,($_POST['password_2']));
-
-
-
  if($password_1 != $password_2){array_push($errors, "password Mismatch");}
  $user_check_query="SELECT * FROM user2 WHERE username= '$username' or email='$email' LIMIT 1  ";
  $results=mysqli_query($db, $user_check_query );
  $user1 = mysqli_fetch_assoc($results);
-
  $_SESSION['username']=$username;
  $usernamed=$_SESSION['username'];
  $servername = "localhost";
@@ -65,9 +52,6 @@ mysqli_query($db, $sql) ;
  if (!$conn) {
      die("Connection failed: " . mysqli_connect_error());
  }
-
-
-
  $sql = "CREATE DATABASE $usernamed";
  mysqli_query($conn, $sql);
  
@@ -75,8 +59,6 @@ mysqli_query($db, $sql) ;
  $sql = "CREATE DATABASE telex";
  mysqli_query($conn, $sql);
  
-
-
  $dba= mysqli_connect('localhost','root','',$usernamed)or die("could not connect database..");
  $sql = "CREATE TABLE `profile` (
      id  INT(6) UNSIGNED AUTO_INCREMENT , 
@@ -91,16 +73,6 @@ mysqli_query($db, $sql) ;
    $sql="INSERT INTO profile (`dp`,`bio`) VALUES ('ava1.png','Bio');";
    mysqli_query($db, $sql); 
  
-
-
-
-
-
-
-
-
-
-
 if($user1){
   if($username==$user1['username']){array_push($errors, "Username already exist");}
   if($user1['email']==$email){array_push($errors, "email id already has a registered username");}
@@ -115,7 +87,6 @@ if(count($errors) == 0){
       header('location: index.php');
     }
 }
-
 elseif(isset($_POST['login_user'])){
         $username = mysqli_real_escape_string($db,($_POST['username']));
         $password = mysqli_real_escape_string($db, ($_POST['password_1']));
@@ -139,5 +110,3 @@ elseif(isset($_POST['login_user'])){
         }
     }
     ?> 
-
-    
