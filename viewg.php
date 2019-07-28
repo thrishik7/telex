@@ -639,7 +639,7 @@ if($resultsv)
   <div class="col-sm-6" style="text-algin:center;">
      <div  style="text-algin:center;">
     
-         <p><input style="width:<?php echo $vts.'%'; ?>; background:<?php echo  $color;  ?>; border:none;" ></p>
+         <p><input title='<?php echo $vts.'%'; ?>' style="width:<?php echo $vts.'%'; ?>; background:<?php echo  $color;  ?>; border:none;" ></p>
      </div>
   </div> 
     </div>

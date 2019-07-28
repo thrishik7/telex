@@ -421,10 +421,10 @@ if($result)
     
              <li style="margin:5px;"><a href="addg.php" title="add post"><i class="fa fa-plus-square-o w3-xxlarge"></i></a></li>
              <li style="margin:5px;"><a title="create form"><i class="fas fa-clipboard-list w3-xxlarge"></i></a></li>
-               
+          <?php   $_SESSION['groupname']=$groupname; ?>
              <li style="margin:5px;"><a href="poll.php" title="start poll"><i class="fas fa-poll w3-xxlarge"></i></a></li>
-             <li style="margin:5px;"><a title="add event"> <i class="fas fa-calendar-alt w3-xxlarge"></i></a></li>
-               
+             <li style="margin:5px;"><a href="event.php" title="add event"> <i class="fas fa-calendar-alt w3-xxlarge"></i></a></li>
+              
              <li style="margin:5px;"><a href="groupmessage.php" title="group chat"><i class="fa fa-comments w3-xxlarge"></i></a></li>
              </ul>
 
@@ -432,6 +432,54 @@ if($result)
 
 
 </div>
+
+
+  <div class="row" style="padding:30px;">
+
+<?php  
+
+
+
+$groupname=$_SESSION['groupname'];
+$dbS= mysqli_connect('localhost','root','', $groupname)or die("could not connect database.."); 
+$sql="SELECT COUNT(eventname) FROM `event`; ";
+$resultev=mysqli_query($dbS,$sql);
+if($resultev)
+{
+  $rowev=mysqli_fetch_assoc($resultev);
+  $eventcount=$rowev['COUNT(eventname)'];
+
+}
+?>
+<a href="showevent.php" title="view events"><strong>EVENTS:</strong> <?php echo $eventcount ?></a>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </div>
 </div>
@@ -679,7 +727,7 @@ if($resultsv)
   <div class="col-sm-6" style="text-algin:center;">
      <div  style="text-algin:center;">
     
-         <p><input style="width:<?php echo $vts.'%'; ?>; background:<?php echo  $color;  ?>; border:none;" ></p>
+         <p><input title='<?php echo $vts.'%'; ?>' style="width:<?php echo $vts.'%'; ?>; background:<?php echo  $color;  ?>; border:none;" ></p>
      </div>
   </div> 
     </div>

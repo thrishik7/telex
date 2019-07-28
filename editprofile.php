@@ -182,6 +182,7 @@ $usernamed=$_SESSION['username'];
 <div>
 <label for="profileImage"><?php echo $_SESSION['username']; ?></label>
 <input type="file" name="dp" id="profileImage" style="display:none;" >
+
 </div> <div>
    <textarea name="bio" placeholder="Bio" height="100" width="300" id="bio" class="form-control"></textarea>
       

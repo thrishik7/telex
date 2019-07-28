@@ -37,6 +37,55 @@ body{
 	font-size:14px;
     
 }
+.formak
+{
+
+    position: relative;
+	z-index: 1;
+	top:150px;
+	box-sizing:border-box;
+	box-shadow: 0 15px 25px rgba(0,0,0,.5);
+    width: 500px;
+	margin: 0 auto 200px;
+	
+	text-align:center;
+  padding: 25px;
+   color : rgb(0, 0, 0);
+   background: #fff;
+   font-size:14px;
+}
+
+.formak input
+{
+	font-family: "Roboto", sans-serif;
+	outline: 1;
+	background: #f2f2f2;
+
+	border: 0;
+	
+
+	box-sizing:border-box;
+
+    
+
+}
+.formak textarea
+{
+	font-family: "Roboto", sans-serif;
+	outline: 1;
+	background: #f2f2f2;
+
+	border: 0;
+	
+
+	box-sizing:border-box;
+
+    
+
+}
+
+
+
 .formag{
     position: relative;
 	z-index: 1;
@@ -48,8 +97,7 @@ body{
 	padding: 35px;
 	text-align:center;
     color : #fff;
-   background: rgba(0, 0, 0, 0.974)
-
+   background: rgba(0, 0, 0, 0.974);
    
    
 }
